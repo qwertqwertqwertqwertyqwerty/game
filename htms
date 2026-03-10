@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Hub</title>
+
+<style>
+
+body{
+margin:0;
+font-family:system-ui;
+background:#0f172a;
+color:white;
+}
+
+header{
+text-align:center;
+padding:40px;
+background:#020617;
+}
+
+h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+#search{
+padding:12px;
+width:320px;
+border-radius:12px;
+border:none;
+font-size:16px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+gap:18px;
+padding:30px;
+}
+
+.card{
+background:#1e293b;
+border-radius:14px;
+padding:20px;
+transition:0.2s;
+text-align:center;
+}
+
+.card:hover{
+background:#334155;
+transform:translateY(-5px);
+}
+
+.card a{
+text-decoration:none;
+color:white;
+font-weight:600;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🎮 Game Hub</h1>
+<p>10,000 Random Browser Games</p>
+<input id="search" placeholder="Search games...">
+</header>
+
+<div class="grid" id="games"></div>
+
+<script>
+
+const gameSites = [
+
+"https://poki.com/",
+"https://crazygames.com/",
+"https://y8.com/games/",
+"https://armorgames.com/",
+"https://itch.io/games/free",
+"https://plays.org/",
+"https://addictinggames.com/",
+"https://miniclip.com/games/",
+"https://coolmathgames.com/",
+"https://kongregate.com/games"
+
+];
+
+const container = document.getElementById("games")
+
+let games = []
+
+for(let i=1;i<=10000;i++){
+
+let site = gameSites[Math.floor(Math.random()*gameSites.length)]
+
+games.push({
+name:"Random Game "+i,
+link:site
+})
+
+}
+
+function render(list){
+
+container.innerHTML=""
+
+list.forEach(g=>{
+
+let card=document.createElement("div")
+card.className="card"
+
+card.innerHTML=`
+<a href="${g.link}" target="_blank">
+🎮 ${g.name}
+</a>
+`
+
+container.appendChild(card)
+
+})
+
+}
+
+document.getElementById("search").addEventListener("input",(e)=>{
+
+let term=e.target.value.toLowerCase()
+
+render(games.filter(g=>g.name.toLowerCase().includes(term)))
+
+})
+
+render(games)
+
+</script>
+
+</body>
+</html>
